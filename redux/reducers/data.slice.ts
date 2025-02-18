@@ -2,12 +2,17 @@ import {createSlice} from "@reduxjs/toolkit";
 import {Toast} from "toastify-react-native";
 import {IRootResponse} from "../../models/IBaseResponse";
 import {IListData} from "../../models/responses/IListData";
+import {IListDateAvg} from "../../models/responses/IListDateAvg";
+import {IDetailDate} from "../../models/responses/IDetailDate";
 
 const initState: IDataSlice = {
     loading : false,
     error: undefined,
     errorMessage: undefined,
-    errorCode: undefined
+    errorCode: undefined,
+    listData: undefined,
+    listDateAvg: undefined,
+    detailDate: undefined
 }
 
 export const DataSlice = createSlice({
@@ -32,5 +37,6 @@ export interface IDataSlice {
     errorMessage?: string
     errorCode?: number
     listData?: IRootResponse<IListData>
-
+    listDateAvg?: IRootResponse<IListDateAvg>
+    detailDate?: IRootResponse<IDetailDate>
 }

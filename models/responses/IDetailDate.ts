@@ -1,4 +1,4 @@
-export interface IListDetailDate {
+export interface IDetailDate {
     ph: number,
     temperature: number,
     date_time: string
