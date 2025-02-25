@@ -1,10 +1,9 @@
 import axios, {AxiosError} from "axios";
-import { Toast } from "toastify-react-native";
 
 export default class ErrorService {
 
     private handleSnackbar(message: string) {
-        Toast.error(message)
+        console.log(message)
     }
 
     public fetchApiError(error: AxiosError<any>) {
@@ -15,7 +14,8 @@ export default class ErrorService {
                 ? error.response.data?.detail
                 : "Terjadi Kesalahan Pada Sistem"
         } else message = String(error)
-        return this.handleSnackbar(message)
+        this.handleSnackbar(message)
+        return message
 
     }
 
@@ -25,5 +25,6 @@ export default class ErrorService {
             message = error.response.data.message ?? "Terjadi Kesalahan Pada Sistem"
         } else message = String(error)
         this.handleSnackbar(message)
+        return message
     }
 }

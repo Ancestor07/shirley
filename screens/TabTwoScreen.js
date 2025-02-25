@@ -1,19 +1,29 @@
-import { StyleSheet } from "react-native";
-
-import EditScreenInfo from "../components/EditScreenInfo";
-import { Text, View } from "../components/Themed";
+import {ScrollView, StyleSheet} from "react-native";
+import {useAppDispatch, useAppSelector} from "../redux/store";
+import {MonitoringAction} from "../redux/actions/monitoring.action";
+import {useEffect, useRef} from "react";
+import CardComponent from "../components/card/CardComponent";
+import DateHelper, {DATE_FORMAT_CONSTANT} from "../helper/DateHelper";
 
 export default function TabTwoScreen() {
+  const dispatch = useAppDispatch();
+  const monitoring = useAppSelector((state) => state.monitoring);
+  const monitoringAction = new MonitoringAction();
+  const intervalRef = useRef(null);
+  const dateHelper = new DateHelper();
+
+  useEffect(() => {
+    // intervalRef.current = setInterval(() => {
+      dispatch(monitoringAction.getListDateAvg()).then();
+    // }, 60000);
+  }, []);
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Tab Two</Text>
-      <View
-        style={styles.separator}
-        lightColor="#eee"
-        darkColor="rgba(255,255,255,0.1)"
-      />
-      <EditScreenInfo path="/screens/TabTwoScreen.tsx" />
-    </View>
+      <ScrollView>
+        {monitoring.listDateAvg && monitoring.listDateAvg.data.map((item, index) => (
+            <CardComponent key={index} title={dateHelper.toFormatDate(item.date_time, DATE_FORMAT_CONSTANT.FULL_MONTH_DATE)} valueLeft={item.ph} valueRight={item.temperature}/>
+        ))}
+      </ScrollView>
   );
 }
 

@@ -1,6 +1,6 @@
 import axios, { AxiosRequestConfig } from "axios"
 
-export const RootEndpoint = process.env.ENDPOINT
+export const RootEndpoint = process.env.EXPO_PUBLIC_API_URL
 
 export class HttpService {
     private baseEndpoint = RootEndpoint

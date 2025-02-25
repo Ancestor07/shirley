@@ -1,5 +1,4 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {Toast} from "toastify-react-native";
 import {IBasePayloadAction, IRootResponse} from "../../models/IBaseResponse";
 import {IListData} from "../../models/responses/IListData";
 import {IListDateAvg} from "../../models/responses/IListDateAvg";
@@ -15,8 +14,8 @@ const initState: IDataReducer = {
     detailDate: undefined
 }
 
-export const DataSlice = createSlice({
-    name: "data",
+export const MonitoringSlice = createSlice({
+    name: "monitoring",
     initialState: initState,
     reducers: {
         setLoading: (state: IDataReducer, action) => {
@@ -26,19 +25,18 @@ export const DataSlice = createSlice({
             state.error = true
             state.errorCode = action.payload.status
             state.errorMessage = action.payload.data
-            Toast.error(action.payload.data)
         },
         setListData: (
             state: IDataReducer,
-            action: IBasePayloadAction<IRootResponse<IListData>>
+            action: IBasePayloadAction<IRootResponse<IListData[]>>
         ) => {
             state.listData = action.payload.data
         },
         setListDateAvg: (
             state: IDataReducer,
-            action: IBasePayloadAction<IRootResponse<IListDateAvg>>
+            action: IBasePayloadAction<IListDateAvg>
         ) => {
-            state.listDateAvg = action.payload.data
+            state.listDateAvg = action.payload
         },
         setDetailDate: (
             state: IDataReducer,
@@ -54,7 +52,7 @@ export interface IDataReducer {
     error?: any
     errorMessage?: string
     errorCode?: number
-    listData?: IRootResponse<IListData>
+    listData?: IRootResponse<IListData[]>
     listDateAvg?: IRootResponse<IListDateAvg>
     detailDate?: IRootResponse<IDetailDate>
 }
