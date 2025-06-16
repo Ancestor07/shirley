@@ -1,4 +1,3 @@
-// components/CardComponentStyles.js
 import { StyleSheet } from 'react-native';
 
 export const styles = StyleSheet.create({
@@ -11,14 +10,25 @@ export const styles = StyleSheet.create({
         backgroundColor: '#fff',
     },
     title: {
-        fontSize: 18,
+        fontSize: 16,
         fontWeight: 'bold',
         textAlign: 'center',
         marginBottom: 16,
     },
     valuesContainer: {
         flexDirection: 'row',
-        justifyContent: 'space-between',
+        display: 'flex',
+        justifyContent: 'space-around',
+        alignItems: 'center'
+    },
+    subContainer: {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+    valueTitle: {
+        fontSize: 14,
+        fontWeight: 'bold',
     },
     value: {
         fontSize: 16,

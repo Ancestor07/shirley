@@ -5,19 +5,26 @@ import {styles} from "./CardStyles";
 
 export default function CardComponent( props : IProps) {
     return (
-        <View style={styles.card} key={props.key}>
+        <View style={styles.card}>
             <Text style={styles.title}>{props.title}</Text>
             <View style={styles.valuesContainer}>
-                <Text style={styles.value}>{props.valueLeft}</Text>
-                <Text style={styles.value}>{props.valueRight}</Text>
+                <View style={styles.subContainer}>
+                    <Text style={styles.valueTitle}>{props.titleLeft}</Text>
+                    <Text style={styles.value}>{props.valueLeft}</Text>
+                </View>
+                <View style={styles.subContainer}>
+                    <Text style={styles.valueTitle}>{props.titleRight}</Text>
+                    <Text style={styles.value}>{props.valueRight}</Text>
+                </View>
             </View>
         </View>
     );
 }
 
 interface IProps {
-    key: number;
     title: string;
     valueRight: any;
     valueLeft: any;
+    titleRight: string;
+    titleLeft: string;
 }

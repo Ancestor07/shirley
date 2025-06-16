@@ -33,7 +33,9 @@
     },
     "plugins": [
       "expo-font",
-      "expo-asset"
-    ]
+      "expo-asset",
+      "@react-native-firebase/app"
+    ],
+    "newArchEnabled": true
   }
 }

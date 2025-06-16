@@ -9,37 +9,24 @@ export default function TabTwoScreen() {
   const dispatch = useAppDispatch();
   const monitoring = useAppSelector((state) => state.monitoring);
   const monitoringAction = new MonitoringAction();
-  const intervalRef = useRef(null);
   const dateHelper = new DateHelper();
 
   useEffect(() => {
-    // intervalRef.current = setInterval(() => {
-      dispatch(monitoringAction.getListDateAvg()).then();
-    // }, 60000);
+    dispatch(monitoringAction.getListDateAvg()).then();
   }, []);
 
   return (
       <ScrollView>
         {monitoring.listDateAvg && monitoring.listDateAvg.data.map((item, index) => (
-            <CardComponent key={index} title={dateHelper.toFormatDate(item.date_time, DATE_FORMAT_CONSTANT.FULL_MONTH_DATE)} valueLeft={item.ph} valueRight={item.temperature}/>
+            <CardComponent
+                key={index}
+                title={dateHelper.toFormatDate(item.date_time, DATE_FORMAT_CONSTANT.FULL_MONTH_DATE)}
+                valueLeft={item.ph}
+                valueRight={`${item.temperature}°C`}
+                titleLeft={"Ph"}
+                titleRight={"Temperature"}
+            />
         ))}
       </ScrollView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  title: {
-    fontSize: 20,
-    fontWeight: "bold",
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: "80%",
-  },
-});
