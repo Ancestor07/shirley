@@ -63,4 +63,18 @@ export class MonitoringAction {
 
         }
     }
+
+    public subscribeToTopic = (topic: string, fcmToken: string) => {
+        return async (dispatch: Dispatch) => {
+            dispatch(this.monitoring.setLoading(true))
+            await this.service
+                .POST(ENDPOINT_CONSTANT.NOTIFICATION.SUBSCRIBE_TOPIC, {topic, fcm_tokens: [fcmToken]})
+                .then((res: IBaseResponse<any>) => {
+                    dispatch(this.monitoring.setLoading(false))
+                }).catch((e) => {
+                    dispatch(this.monitoring.setLoading(false))
+                    dispatch(this.monitoring.setError(e))
+                })
+        }
+    }
 }
