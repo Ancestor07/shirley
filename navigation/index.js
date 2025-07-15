@@ -10,6 +10,8 @@ import { createStackNavigator } from "@react-navigation/stack";
 import NotFoundScreen from "../screens/NotFoundScreen";
 import BottomTabNavigator from "./BottomTabNavigator";
 import LinkingConfiguration from "./LinkingConfiguration";
+import {displayNotification} from "../notification/notification.helper";
+import messaging from "@react-native-firebase/messaging";
 
 export default function Navigation({ colorScheme }) {
   return (
@@ -38,3 +40,11 @@ function RootNavigator() {
     </Stack.Navigator>
   );
 }
+
+async function onMessageReceived(message) {
+  // Handle the received message here
+  await displayNotification(message);
+}
+
+messaging().onMessage(onMessageReceived);
+messaging().setBackgroundMessageHandler(onMessageReceived);
