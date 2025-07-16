@@ -8,7 +8,13 @@ import {Provider} from "react-redux";
 import storeRedux from "./redux/store";
 import messaging from '@react-native-firebase/messaging';
 import { MonitoringAction } from "./redux/actions/monitoring.action";
-import notifee from "@notifee/react-native";
+import {useNotification} from "./notification/notification.helper";
+
+// Set the background message handler
+messaging().setBackgroundMessageHandler(async (remoteMessage) => {
+    console.log("Message handled in the background!", remoteMessage);
+    // Add any additional logic for handling background messages here
+});
 
 export default function App() {
   const isLoadingComplete = useLoadedAssets();
@@ -60,13 +66,8 @@ export default function App() {
         return () => {
             unsubscribeForeground();
         }
-        // messaging().onMessage(async remoteMessage => {
-        //     console.log('A new FCM message arrived!', JSON.stringify(remoteMessage));
-        //     console.log('Notification caused app to open from background state:', remoteMessage.notification);
-        //     await notifee.displayNotification(remoteMessage);
-        // })
     }, []);
-
+    useNotification()
   if (!isLoadingComplete) {
     return null;
   } else {
