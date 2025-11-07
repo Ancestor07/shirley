@@ -35,7 +35,7 @@ export default function App() {
                           storeRedux.dispatch(new MonitoringAction().subscribeToTopic('sensor', fcmToken));
                       })
                       .then(() => {
-                          messaging().subscribeToTopic('sensor')
+                          messaging().subscribeToTopic('sensor').then()
                       })
                       .then(() => console.log('Subscribed to topic!'))
                       .then(() => {messaging().onMessage(async remoteMessage => {
@@ -47,22 +47,12 @@ export default function App() {
 
     useEffect(() => {
         const unsubscribeForeground = messaging().onMessage(async (remoteMessage) => {
-            console.log("Foreground notification received:", remoteMessage);
-
             // Display the notification using Alert (basic React Native)
             Alert.alert(
                 remoteMessage.notification?.title || "Notification",
                 remoteMessage.notification?.body || "You have a new message"
             );
         })
-        messaging().setBackgroundMessageHandler(async (remoteMessage) => {
-            console.log("Background notification received:", remoteMessage);
-
-            if (Platform.OS === "android") {
-                // Use a local notification library or system notification API for Android
-                console.log("Display notification in background (Android)");
-            }
-        });
         return () => {
             unsubscribeForeground();
         }
